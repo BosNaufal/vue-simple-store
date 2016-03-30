@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vue Simple Store | Store Organizer To Simplify Your Stores</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Vue Simple Store is a Store Organizer To Simplify Your Stores">
+    <meta name="keywords" content="flux, vue js, store, Vue Simple Store, javascript, library, javascript plugin, vue plugin, state management, vue awesome, easy state management, clean code, simple state management">
+    <meta name="robots" content="index, follow">
+    <meta name="DC.title" content="Vue Simple Store | Store Organizer To Simplify Your Stores">
+
+    <meta property="og:url" content="http://bosnaufal.github.io/vue-simple-store/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Simple Vue Simple Store">
+    <meta property="og:description" content="Vue Simple Store is a Store Organizer To Simplify Your Stores">
+    <meta property="og:image" content="http://bosnaufal.github.io/vue-simple-store/assets/img/share-img.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@BosNaufal">
+    <meta name="twitter:site" content="@BosNaufal">
+    <meta name="twitter:title" content="Simple Vue Simple Store">
+    <meta name="twitter:description" content="Vue Simple Store is a Store Organizer To Simplify Your Stores">
+    <meta name="twitter:image" content="http://bosnaufal.github.io/vue-simple-store/assets/img/share-img.png">
+
+
+
+    <link rel="canonical" href="http://bosnaufal.github.io/vue-simple-store/">
+    <link rel="author" href="https://github.com/BosNaufal" />
+    <link rel="publisher" href="https://github.com/BosNaufal" />
+
+    <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:300' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+
+  </head>
+
+<body>
+
+	<header>
+    <div class="container">
+  		<img src="./assets/img/share-img.png" alt="Vue Simple Store is a Store Organizer To Simplify Your Stores | Logo">
+    </div>
+	</header>
+
+  <nav>
+    <div class="container text-center">
+      <a href="#content">GETTING STARTED</a>
+      <a href="#API">API</a>
+      <a href="https://github.com/BosNaufal/vue-simple-store">DOWNLOAD</a>
+      <a href="http://www.webpackbin.com/4y-sFXVRx">DEMO</a>
+    </div>
+  </nav>
+
+  <section id="content">
+    <div class="container">
+      <article class="center-block">
+        <h1 class="text-center"> Vue Simple Store! </h1>
+
+        <h2>So, What is it?</h2>
+        <p><span class="highlight">Vue Simple Store</span> is a vue plugin which will simplify your App Store. It will combine your separated stores into one global store.</p>
+
+        <h2>Why am I need it?</h2>
+        <p>Once your App become large and has many <a href="http://vuejs.org/guide/application.html#State-Management">stores</a> in it, you probably have inconvenience to import your stores one by one. And you might keep repeating that thing in all your component script. In my opinion, it is not efficient way to use the stores of the App. How do you think if you only need to import all your stores once, then use it in everywhere?</p>
+
+        <h2>Sounds good. Well, What does Vue Simple Store do with all my stores?</h2>
+        <p>Not a big thing. <span class="highlight">Vue Simple Store</span> just try to help you to organize your stores then serves a simple API such as, <code>state</code> and <code>$action</code>. No More.</p>
+
+        <h2>Stop talking and give me a code!</h2>
+        <p>Hhhmm... Oke, let's give it a try!</p>
+
+        <br />
+        <h3 id="install">Installation</h3>
+        <p>You need to prepare your stores first.</p>
+
+
+        <br />
+        <h3 id="cart-js">cart.js</h3>
+<pre><code data-language="javascript">// Make a store for the "cart"
+
+export default {
+
+  // You must define the name of the individual store
+  name: "cart",
+
+  // The state of the cart
+  state: {
+    items: []
+  },
+
+
+  /**
+    All actions to mutate the cart state
+  */
+  add_item(item){ // Add an item to the cart
+    this.state.items.push(item)
+  }
+
+}
+
+</code></pre>
+
+        <p>Repeat it to make a user store</p>
+
+
+        <br />
+        <h3 id="user-js">user.js</h3>
+<pre><code data-language="javascript">// Make a store for the "user"
+
+export default {
+
+  // You must define the name of the individual store
+  name: "user",
+
+  // The state of the user
+  state: {
+    toBePaid: 0
+  },
+
+
+  /**
+    All actions to mutate the user state
+  */
+  buy_item(product){ // Add the amount to be paid
+    this.state.toBePaid += product.price
+  }
+
+}
+
+</code></pre>
+
+        <p>Now we've just make a all the needed stores. But we haven't yet installed it to our Vue App. Let's install it.</p>
+
+        <br />
+        <h3 id="main-js">main.js</h3>
+<pre><code data-language="javascript">import Vue from 'vue'
+
+/**
+The Final step,
+Put all stores to Vue Simple Store
+*/
+
+// Import the libraries
+import VueSimpleStore from './vue-simple-store.js'
+import cartStore from './cart.js'
+import userStore from './user.js'
+
+
+// Install it!
+Vue.use( VueSimpleStore, {
+  stores: [ cartStore, userStore ]
+})
+
+
+// App Component
+import App from './App.vue'
+
+
+// Mount The App
+new Vue({
+  el: 'body',
+  components: { App }
+})
+
+</code></pre>
+
+        <p>We have <code>state</code> and <code>$action</code> Methods now! So, let's have fun with the Vue app!</p>
+
+        <br />
+        <h3 id="app-vue">App.vue</h3>
+<pre><code data-language="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Vue Simple Store Demo&lt;/h1&gt;
+    &lt;p&gt;Your Cart: {{ state.cart.items.length }} items&lt;/p&gt;
+    &lt;p&gt;To Be Paid: ${{ state.user.toBePaid }}&lt;/p&gt;
+
+    &lt;h3&gt;Pick a product Here&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li v-for=&quot;product in products&quot;&gt;
+        &lt;a href=&quot;#&quot; @click.prevent=&quot;buy(product)&quot;&gt;
+          {{ product.name }}
+        &lt;/a&gt;
+        &lt;span&gt;- ${{ product.price }}&lt;/span&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default {
+    data () {
+      return {
+        products: [
+          { name: &quot;Swag Bag&quot;, price: 40 },
+          { name: &quot;Casual Shirt&quot;, price: 20 }
+        ]
+      }
+    },
+
+    methods:{
+      buy(product){
+        this.$action(&apos;cart:add_item&apos;,product)
+        this.$action(&apos;user:buy_item&apos;,product)
+      }
+    }
+  }
+&lt;/script&gt;
+</code></pre>
+
+        <p>How do you think? Is it good enough? You can try the working code above <a href="http://www.webpackbin.com/4y-sFXVRx">here</a></p>
+
+        <h2>How about the API?</h2>
+        <p><span class="highlight">Vue Simple Store</span> will provide you <code>state</code>, and <code>$action</code> Only.</p>
+
+        <br />
+        <h2 id="API">The API:</h2>
+        <ul class="table-of-content">
+          <li><a href="#state">state</a></li>
+          <li><a href="#$action">$action</a></li>
+          <li><a href="#options">Options</a></li>
+        </ul>
+        <br />
+
+        <h3 id="state">state</h3>
+        <p>The <code>state</code> will provide you the global states which is the result of combining all your stores.</p>
+
+<pre><code data-language="javascript">// declare New Store
+var cartStore = {
+
+  name: "cart"
+
+  state: {
+    msg: "Your Cart Is Empty"
+  }
+
+};
+
+// Once you install the Vue Simple Store you will get global states in your VM
+this.state.cart.msg; // "Your Cart Is Empty"
+
+</code></pre>
+
+        <p>The name format of the <code>state</code> is <code>this.state.{store.name}.{state}</code></p>
+
+
+
+        <br/>
+        <h3 id="$action">$action</h3>
+        <p>The <code>$action</code> will connect you to your store actions. It will trigger up your store action.</p>
+
+<pre><code data-language="javascript">// declare New Store
+var cartStore = {
+
+  name: "cart"
+
+  state: {}
+
+  some_action(singleArgument){
+    console.log("You've Just triggered Me!")
+  }
+
+};
+
+
+// Once you install the Vue Simple Store you can trigger that event via your VM
+this.$action('cart:some_action', singleArgument);
+// You've Just Triggered Me!
+
+</code></pre>
+
+        <br/>
+        <p>The action only can pass a single argument to your store actions. The name format of the <code>state</code> is <code>this.$action({store.name}:{store.action}, singleArgument)</code>. All those things probably can make you easier to organize your stores, instead of import it one by one.</p>
+
+
+        <br/>
+        <h3 id="options">Options</h3>
+        <p><span class="highlight">Vue Simple Store</span> have some installation options and their default value.</p>
+
+<pre><code data-language="javascript">Vue.use(VueSimpleStore,{
+  stores: [] // put your stores here
+  debug: true, // always log your actions
+});
+</code></pre>
+
+        <p>Done!</p>
+
+
+      </article>
+    </div>
+  </section>
+
+  <section id="thanks">
+    <div class="container text-center">
+      <h2>Thanks To:</h2>
+      <ul class="thanks-list list-unstyled">
+        <li><a href="https://vuejs.org">Evan You - For his Simple Yet Powerfull Framework! Awesome!</a></li>
+        <li>And You Who have used this and make it become useful!</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <section id="contact-me">
+    <div class="container text-center">
+      <h2>Let's talk about some project~</h2>
+      <br/>
+      <h3>Just Contact Me at:</h3>
+      <ul class="list-unstyled">
+        <li>Email: <a href="mailto:bosnaufalemail@gmail.com">bosnaufalemail@gmail.com</a></li>
+        <li>Skype Id: bosnaufal254</li>
+        <li>twitter: <a href="https://twitter.com/BosNaufal">@BosNaufal</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="copyright">
+    <div class="container text-center">
+      <p>Copyright (c) By Bos Naufal 2016 - Forever</p>
+    </div>
+  </section>
+
+  <a href="#" class="back-to-top">TOP</a>
+	<script src="https://cdn.rawgit.com/ccampbell/rainbow/master/js/rainbow.min.js"></script>
+	<script src="https://cdn.rawgit.com/ccampbell/rainbow/master/js/language/generic.js"></script>
+	<script src="https://cdn.rawgit.com/ccampbell/rainbow/master/js/language/javascript.js"></script>
+  <script src="https://cdn.rawgit.com/ccampbell/rainbow/master/js/language/html.js"></script>
+</body>
+</html>
