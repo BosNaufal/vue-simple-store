@@ -5,6 +5,9 @@ Vue Simple Store is a vue plugin which will simplify your App Store. It will com
 
 ## [HOME PAGE](https://bosnaufal.github.io/vue-simple-store)
 
+## Examples
+- [Vue Mini Shop](https://github.com/BosNaufal/vue-mini-shop)
+
 ## Thank You for Making this become useful~
 Hopefully it can be useful for your next projects.
 
